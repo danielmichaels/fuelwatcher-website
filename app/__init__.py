@@ -2,10 +2,11 @@
 from flask import Flask
 from config import config
 from flask_sqlalchemy import SQLAlchemy
-
+from fuelwatcher import FuelWatch
 # Instantiations
 
 db = SQLAlchemy()
+fuelwatch = FuelWatch()
 
 
 def create_app(config_name):

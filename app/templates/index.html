@@ -1,5 +1,78 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    <section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Fuel Watch Western Australia
+            </h1>
+            <h2 class="subtitle">
+                Today's Top Ten
+            </h2>
+        </div>
+      </div>
+    </div>
+    </div>
+    </section>
+    <div class="block">
+        <div class="columns">
+            <div class="column">
+                <p class="notification is-size2 has-text-weight-bold has-text-centered">
+                    Unleaded Petrol</p>
+                {% for resp in ulp %}
+                    <ul>
+                        <li>
+                            <p class="is-size-4">{{ resp.price }}</p>
+                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
+                            <p class="is-size-5">{{ resp.address }}</p>
+                            <br>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <div class="column">
+                <p class="notification is-size2 has-text-weight-bold has-text-centered">
+                    Premium Unleaded Petrol</p>
+                {% for resp in p_ulp %}
+                    <ul>
+                        <li>
+                            <p class="is-size-4">{{ resp.price }}</p>
+                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
+                            <p class="is-size-5">{{ resp.address }}</p>
+                            <br>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <div class="column">
+                <p class="notification is-size2 has-text-weight-bold has-text-centered">
+                    Diesel</p>
+                {% for resp in dsl %}
+                    <ul>
+                        <li>
+                            <p class="is-size-4">{{ resp.price }}</p>
+                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
+                            <p class="is-size-5">{{ resp.address }}</p>
+                            <br>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <div class="column">
+                <p class="notification is-size2 has-text-weight-bold has-text-centered has-border">
+                    LPG</p>
+                {% for resp in lpg %}
+                    <ul>
+                        <li>
+                            <p class="is-size-4">{{ resp.price }}</p>
+                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
+                            <p class="is-size-5">{{ resp.address }}</p>
+                            <br>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
