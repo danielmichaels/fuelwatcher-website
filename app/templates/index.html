@@ -1,19 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <section class="hero">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Fuel Watch Western Australia
-            </h1>
-            <h2 class="subtitle">
-                Today's Top Ten
-            </h2>
+
+    <!-- search bar with dropdowns -->
+    <div class="container">
+        <div class="notification">
+            <div class="field has-addons">
+                <label class="label">
+                    Search Suburbs
+                    <div class="control is-expanded">
+                        <div class="select is-fullwidth">
+                            <select name="Suburb">
+                                {% for suburb in suburbs %}
+                                    <option value="{{ suburb }}">{{ suburb }}</option>
+
+                                {% endfor %}
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="control">
+                        <button class="button is-info" type="submit">Choose
+                        </button>
+                    </div>
+                </label>
+            </div>
         </div>
-      </div>
     </div>
-    </div>
+
+    <!-- end drop down -->
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Fuel Watch Western Australia
+                </h1>
+                <h2 class="subtitle">
+                    <a href="{{ url_for('core.index', day='today') }}">Today</a>
+                    /
+                    <a href="{{ url_for('core.index', day='yesterday') }}">Yesterday</a>
+                    /
+                    <a href="{{ url_for('core.index', day='tomorrow') }}">Tomorrow</a>
+                </h2>
+            </div>
+        </div>
+        </div>
+        </div>
     </section>
     <div class="block">
         <div class="columns">

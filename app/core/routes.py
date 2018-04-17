@@ -1,16 +1,12 @@
 import logging
 from . import core
-from flask import render_template, jsonify
+from flask import render_template, jsonify, redirect
 from app import db, fuelwatch
+from fuelwatcher import constants
 from app.models import *
 
 logging.basicConfig(level=logging.INFO)
 
-
-@core.route('/')
-@core.route('/index')
-def index():
-    return render_template('index.html')
 
 @core.route('/test')
 def test():
@@ -23,14 +19,30 @@ def test():
 
     return jsonify(xml, xml1, xml2)
 
-@core.route('/example')
-def example():
-    fuelwatch.query(product=1)
+
+@core.route('/index/<day>')
+@core.route('/<day>')
+def index(day):
+    """User initiated selection of day
+
+    :arg day takes in options {today, yesterday, tomorrow}
+
+    :return index.html with top ten prices for user selected :arg day
+    """
+    fuelwatch.query(product=1, day=day)
     ulp = fuelwatch.get_xml[:10]
-    fuelwatch.query(product=2)
+    fuelwatch.query(product=2, day=day)
     p_ulp = fuelwatch.get_xml[:10]
-    fuelwatch.query(product=4)
+    fuelwatch.query(product=4, day=day)
     dsl = fuelwatch.get_xml[:10]
-    fuelwatch.query(product=5)
+    fuelwatch.query(product=5, day=day)
     lpg = fuelwatch.get_xml[:10]
-    return render_template('index.html', ulp=ulp, p_ulp=p_ulp, dsl=dsl, lpg=lpg)
+
+    suburbs = constants.SUBURB
+
+    if len(ulp or p_ulp or dsl or lpg) == 0:
+        #flash (Check after 1430 AWST)
+        return redirect("index/today")
+
+    return render_template('index.html', ulp=ulp, p_ulp=p_ulp, dsl=dsl,
+                           lpg=lpg, day=day, suburbs=suburbs)
