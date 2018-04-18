@@ -1,0 +1,17 @@
+{% include 'base.html' %}
+
+<div class="column">
+    <p class="notification">
+    <p class="has-text-centered is-size-3 has-text-weight-bold">Regions</p>
+    {% for data in region %}
+        <ul>
+            <li>
+                <p class="is-size-5">{{ data.title }}</p>
+                <p class="is-size-5">{{ data.price }}</p>
+                <p class="is-size-5">{{ data['trading-name'] }}</p>
+                <p class="is-size-5">{{ data.address }}</p>
+            </li>
+        </ul>
+    {% endfor %}
+    </p>
+</div>

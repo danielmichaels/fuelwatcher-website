@@ -1,0 +1,15 @@
+{% include 'base.html' %}
+
+<div class="column">
+    <p class="notification">
+    <p class="has-text-centered is-size-3 has-text-weight-bold">Regions</p>
+        {% for region in regions.values() %}
+            <ul>
+                <li>
+                    <p class="is-size-5"><a href="{{ url_for('core.region', region=region) }}">{{ region }}</a></p>
+            </li>
+        </ul>
+        {% endfor %}
+    </p>
+</div>
+

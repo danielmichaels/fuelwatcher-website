@@ -10,14 +10,12 @@ logging.basicConfig(level=logging.INFO)
 
 @core.route('/test')
 def test():
-    fuelwatch.query(suburb='Floreat', product=1)
-    xml = fuelwatch.get_xml
-    fuelwatch.query(suburb='Floreat', product=2)
-    xml1 = fuelwatch.get_xml
-    fuelwatch.query(suburb='Floreat', product=4)
-    xml2 = fuelwatch.get_xml
+    return render_template('index.html')
 
-    return jsonify(xml, xml1, xml2)
+
+@core.route('/')
+def redirect_index():
+    return redirect('index/today')
 
 
 @core.route('/index/<day>')
@@ -43,9 +41,33 @@ def index(day):
 
     # if len(ulp or p_ulp or dsl or lpg) == 0:
     # if not (ulp or p_ulp or dsl or lpg):
-        # flash (Check after 1430 AWST)
-        # return redirect("index/today")
+    # flash (Check after 1430 AWST)
+    # return redirect("index/today")
 
     return render_template('index.html', ulp=ulp, p_ulp=p_ulp, dsl=dsl,
                            lpg=lpg, day=day, suburbs=suburbs,
                            product=product.values(), surrounding=surrounding)
+
+
+@core.route('/regions')
+def regions():
+    regions = constants.REGION
+
+    return render_template('regions.html', regions=regions)
+
+
+@core.route('/regions/<region>')
+def region(region):
+    mock = {'price': 3, 'title': region, 'trading-name': 'trade name',
+            'address': '123 fake st'}
+    for region in constants.REGION:
+        region = region
+        # get the key and value rather than just value
+
+    if not fuelwatch.query(region=region, product=1):
+        return jsonify(mock)
+
+    if fuelwatch.query(region=region, product=1):
+        resp = fuelwatch.get_xml
+
+    return render_template('region.html', region=region, resp=resp) #return product too
