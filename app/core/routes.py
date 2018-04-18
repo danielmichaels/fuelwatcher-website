@@ -38,11 +38,14 @@ def index(day):
     fuelwatch.query(product=5, day=day)
     lpg = fuelwatch.get_xml[:10]
 
-    suburbs = constants.SUBURB
+    suburbs, product = constants.SUBURB, constants.PRODUCT
+    surrounding = ['yes', 'no']
 
-    if len(ulp or p_ulp or dsl or lpg) == 0:
-        #flash (Check after 1430 AWST)
-        return redirect("index/today")
+    # if len(ulp or p_ulp or dsl or lpg) == 0:
+    # if not (ulp or p_ulp or dsl or lpg):
+        # flash (Check after 1430 AWST)
+        # return redirect("index/today")
 
     return render_template('index.html', ulp=ulp, p_ulp=p_ulp, dsl=dsl,
-                           lpg=lpg, day=day, suburbs=suburbs)
+                           lpg=lpg, day=day, suburbs=suburbs,
+                           product=product.values(), surrounding=surrounding)
