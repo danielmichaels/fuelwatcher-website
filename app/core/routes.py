@@ -63,7 +63,6 @@ def regions():
 
 @core.route('/regions/<region>')
 def region(region):
-
     resp = None
     if fuelwatch.query(region=int(region)):
         resp = fuelwatch.get_xml
@@ -74,30 +73,24 @@ def region(region):
         # region=region))
         return redirect('index/today')
 
-    return render_template('region.html', region=region, resp=resp)
-
 
 @core.route('/search_results/<product>/<suburb>')
 def search_results(product, suburb):
-    mock = {'price': 3, 'title': product, 'trading-name': 'trade name',
-            'address': suburb}
-
-    # for products in constants.PRODUCT:
-    #     product = products
-    for k,v in constants.PRODUCT:
-        if k == product:
-            product = v
-
-    # for k,v in constants.PRODUCT:
-    #     v = product
-
-    if not fuelwatch.query(suburb=suburb, product=product):
-        return jsonify(mock)
-    else:
+    resp = None
+    if not fuelwatch.query(suburb=suburb, product=int(product)):
+        # flash message
+        return redirect('index/today')
+    if fuelwatch.query(suburb=suburb, product=int(product)):
         resp = fuelwatch.get_xml
+        product_value = constants.PRODUCT.get(int(product))
+        if not resp:
+            empty = 'Sorry! {0} is not availabe in {1}'.format(
+                product_value, suburb)
+            # if product returns no matches
+            # return redirect('index/today')
+        return render_template('result.html', suburb=suburb,
+                               product=product_value,
+                               resp=resp)
 
-    # if fuelwatch.query(suburb=suburb, product=product):
-    #     resp = fuelwatch.get_xml
-
-    return render_template('result.html', suburb=suburb, product=product,
-                           resp=resp)
+    # return render_template('result.html', suburb=suburb, product=product,
+    #                        resp=resp)

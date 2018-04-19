@@ -1,0 +1,34 @@
+{% include 'base.html' %}
+
+{% block content %}
+    {% if resp is not none %}
+        <div class="container is-fluid">
+        <div class="column">
+            <p class="notification has-text-centered is-size-3 has-text-weight-bold">
+                Search Results</p>
+            {% for data in resp %}
+                <ul>
+                    <li>
+                        <p class="is-size-5">{{ data.title }}</p>
+                        <p class="is-size-5">{{ data.price }}</p>
+                        <p class="is-size-5">{{ data['trading-name'] }}</p>
+                        <p class="is-size-5">{{ data.address }}</p>
+                    </li>
+                </ul>
+
+            {% else %}
+
+                <article class="message is-warning">
+                    <div class="message-header">
+                        <p>Warning</p>
+                        <button class="delete"
+                                aria-label="delete"></button>
+                    </div>
+                    <div class="message-body has-text-centered is-size-3 has-text-weight-bold">
+                        Sorry! {{ product }} Not Available in {{ suburb }}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
