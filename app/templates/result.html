@@ -18,16 +18,6 @@
 
             {% else %}
 
-                <article class="message is-warning">
-                    <div class="message-header">
-                        <p>Warning</p>
-                        <button class="delete"
-                                aria-label="delete"></button>
-                    </div>
-                    <div class="message-body has-text-centered is-size-3 has-text-weight-bold">
-                        Sorry! {{ product }} Not Available in {{ suburb }}
-                    </div>
-                </article>
             {% endfor %}
         </div>
     {% endif %}

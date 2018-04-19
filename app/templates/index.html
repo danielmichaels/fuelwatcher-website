@@ -4,7 +4,7 @@
 
     <!-- search bar with dropdowns -->
 
-    <div class="container">
+    <div class="container is-fluid">
         <div class="notification">
             <p class="is-size3">Search</p>
             <div class="field has-addons">
@@ -26,49 +26,49 @@
                         {% endfor %}
                     </select>
                 </div>
-{#                <div class="field has-addons">#}
-{#                    <p class="control">#}
-{#                    <span class="select">#}
-{#                         <select>#}
-{#                            {% for answer in surrounding %}#}
-{#                                <option>#}
-{#                                {{ answer }}#}
-{#                                </option>#}
-{#                            {% endfor %}#}
-{#                    </select>#}
-{#                </span>#}
-{#                    </p>#}
-                    <p class="control is-expanded">
-                    </p>
-                    <p class="control">
-                        <a class="button">
-                            Search
-                        </a>
-                    </p>
-                </div>
+                {#                <div class="field has-addons">#}
+                {#                    <p class="control">#}
+                {#                    <span class="select">#}
+                {#                         <select>#}
+                {#                            {% for answer in surrounding %}#}
+                {#                                <option>#}
+                {#                                {{ answer }}#}
+                {#                                </option>#}
+                {#                            {% endfor %}#}
+                {#                    </select>#}
+                {#                </span>#}
+                {#                    </p>#}
+                <p class="control is-expanded">
+                </p>
+                <p class="control">
+                    <a class="button is-info" type="submit"
+                       href="{{ url_for('core.search_results',
+                       suburb='Floreat', product=7) }}">
+                        Search
+                    </a>
+                </p>
             </div>
         </div>
-        <!-- end drop down -->
+    </div>
+    <!-- end drop down -->
 
-        <section class="hero">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Fuel Watch Western Australia
-                    </h1>
-                    <h2 class="subtitle">
-                        <a href="{{ url_for('core.index', day='today') }}">Today</a>
-                        /
-                        <a href="{{ url_for('core.index', day='yesterday') }}">Yesterday</a>
-                        /
-                        <a href="{{ url_for('core.index', day='tomorrow') }}">Tomorrow</a>
-                    </h2>
-                </div>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Fuel Watch Western Australia
+                </h1>
+                <h2 class="subtitle">
+                    <a href="{{ url_for('core.index', day='today') }}">Today</a>
+                    /
+                    <a href="{{ url_for('core.index', day='yesterday') }}">Yesterday</a>
+                    /
+                    <a href="{{ url_for('core.index', day='tomorrow') }}">Tomorrow</a>
+                </h2>
             </div>
-    </div>
-    </div>
+        </div>
     </section>
-    <div class="block">
+    <div class="container is-fluid">
         <div class="columns">
             <div class="column">
                 <p class="notification is-size2 has-text-weight-bold has-text-centered">

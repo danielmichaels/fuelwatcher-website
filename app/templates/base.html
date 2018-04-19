@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fuelwatcher | A West Australia FuelWatch Aggregator and Search Site.</title>
+    <title>Fuelwatcher | A West Australia FuelWatch Aggregator and Search
+        Site.</title>
     <link rel="stylesheet" type="text/css" href="
             {{ url_for('static', filename='node_modules/bulma/css/bulma.css') }}">
-     <!--   <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!--   <link rel="stylesheet"
+             href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
     <script defer
             src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
@@ -30,7 +31,8 @@
         </div>
         <div id="topstories-nav" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{ url_for('core.index', day='today') }}">
+                <a class="navbar-item"
+                   href="{{ url_for('core.index', day='today') }}">
                     Home
                 </a>
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -50,8 +52,25 @@
                     </div>
                 </div>
             </div>
+        </div>
     </nav>
 {% endblock %}
+
+
+<!-- Message Flashing -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="container is-fluid">
+                <div class="notification is-warning has-text-centered is-size-3">
+                    <button class="delete"></button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 
 {% block content %}
 
