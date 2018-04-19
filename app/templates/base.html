@@ -30,22 +30,22 @@
         </div>
         <div id="topstories-nav" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="https://bulma.io/">
+                <a class="navbar-item" href="{{ url_for('core.index', day='today') }}">
                     Home
                 </a>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link"
                        href="{{ url_for('core.index', day='today') }}">
-                        placeholder
+                        Find More
                     </a>
                     <div class="navbar-dropdown is-boxed">
                         <a class="navbar-item"
                            href="{{ url_for('core.index', day='today') }}">
-                            placeholder
+                            Brand
                         </a>
                         <a class="navbar-item"
-                           href="{{ url_for('core.index', day='today') }}">
-                            placeholder
+                           href="{{ url_for('core.regions') }}">
+                            Regions
                         </a>
                     </div>
                 </div>
