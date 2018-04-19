@@ -1,6 +1,6 @@
 import logging
 from . import core
-from flask import render_template, jsonify, redirect
+from flask import render_template, jsonify, redirect, flash
 from app import db, fuelwatch
 from fuelwatcher import constants
 from app.models import *
@@ -10,7 +10,12 @@ logging.basicConfig(level=logging.INFO)
 
 @core.route('/test')
 def test():
-    return render_template('index.html')
+    suburbs, product = constants.SUBURB, constants.PRODUCT
+    fuelwatch.query(product=1)
+    resp = fuelwatch.get_xml[:10]
+    return jsonify(resp)
+    # return render_template('index.html', product=product.values(),
+    #                        suburbs=suburbs)
 
 
 @core.route('/')
@@ -58,16 +63,41 @@ def regions():
 
 @core.route('/regions/<region>')
 def region(region):
-    mock = {'price': 3, 'title': region, 'trading-name': 'trade name',
-            'address': '123 fake st'}
-    for region in constants.REGION:
-        region = region
-        # get the key and value rather than just value
 
-    if not fuelwatch.query(region=region, product=1):
+    resp = None
+    if fuelwatch.query(region=int(region)):
+        resp = fuelwatch.get_xml
+        region_value = constants.REGION.get(int(region))
+        return render_template('region.html', region=region_value, resp=resp)
+    if not fuelwatch.query(region=int(region)):
+        # flash('Error Searching {region} Please Try Again Later'.format(
+        # region=region))
+        return redirect('index/today')
+
+    return render_template('region.html', region=region, resp=resp)
+
+
+@core.route('/search_results/<product>/<suburb>')
+def search_results(product, suburb):
+    mock = {'price': 3, 'title': product, 'trading-name': 'trade name',
+            'address': suburb}
+
+    # for products in constants.PRODUCT:
+    #     product = products
+    for k,v in constants.PRODUCT:
+        if k == product:
+            product = v
+
+    # for k,v in constants.PRODUCT:
+    #     v = product
+
+    if not fuelwatch.query(suburb=suburb, product=product):
         return jsonify(mock)
-
-    if fuelwatch.query(region=region, product=1):
+    else:
         resp = fuelwatch.get_xml
 
-    return render_template('region.html', region=region, resp=resp) #return product too
+    # if fuelwatch.query(suburb=suburb, product=product):
+    #     resp = fuelwatch.get_xml
+
+    return render_template('result.html', suburb=suburb, product=product,
+                           resp=resp)
