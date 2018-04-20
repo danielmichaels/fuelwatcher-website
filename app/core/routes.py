@@ -51,7 +51,7 @@ def index(day):
 
     return render_template('index.html', ulp=ulp, p_ulp=p_ulp, dsl=dsl,
                            lpg=lpg, day=day, suburbs=suburbs,
-                           product=product.values(), surrounding=surrounding)
+                           product=product, surrounding=surrounding)
 
 
 @core.route('/regions')
@@ -63,15 +63,14 @@ def regions():
 
 @core.route('/regions/<region>')
 def region(region):
-    resp = None
-    if fuelwatch.query(region=int(region)):
-        resp = fuelwatch.get_xml
-        region_value = constants.REGION.get(int(region))
-        return render_template('region.html', region=region_value, resp=resp)
-    if not fuelwatch.query(region=int(region)):
-        # flash('Error Searching {region} Please Try Again Later'.format(
-        # region=region))
+    fuelwatch.query(region=int(region))
+    resp = fuelwatch.get_xml
+    region_value = constants.REGION.get(int(region))
+    if not resp:
+        flash('Error Searching {region} Please Try Again Later'.format(
+            region=region))
         return redirect('index/today')
+    return render_template('region.html', region=region_value, resp=resp)
 
 
 @core.route('/search_results/<product>/<suburb>')
@@ -83,11 +82,14 @@ def search_results(product, suburb):
         flash('Sorry! {0} is not availabe in {1} Please try a new search'.
               format(product_value, suburb))
         return redirect('index/today')
-    return render_template('result.html', resp=resp, suburb=suburb)
+    return render_template('result.html', resp=resp, suburb=suburb,
+                           product=product_value)
+
 
 @core.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
 
 @core.errorhandler(500)
 def internal_error(error):
