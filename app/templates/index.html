@@ -10,8 +10,8 @@
             <div class="field has-addons">
                 <p class="control">
                     <span class="select">
-                         <select>
-                            {% for fuel in product %}
+                         <select class="test">
+                            {% for fuel in product.values() %}
                                 <option>
                                 {{ fuel }}
                                 </option>
@@ -26,24 +26,12 @@
                         {% endfor %}
                     </select>
                 </div>
-                {#                <div class="field has-addons">#}
-                {#                    <p class="control">#}
-                {#                    <span class="select">#}
-                {#                         <select>#}
-                {#                            {% for answer in surrounding %}#}
-                {#                                <option>#}
-                {#                                {{ answer }}#}
-                {#                                </option>#}
-                {#                            {% endfor %}#}
-                {#                    </select>#}
-                {#                </span>#}
-                {#                    </p>#}
                 <p class="control is-expanded">
                 </p>
                 <p class="control">
                     <a class="button is-info" type="submit"
                        href="{{ url_for('core.search_results',
-                       suburb='Floreat', product=7) }}">
+                       suburb=suburb, product=fuel) }}">
                         Search
                     </a>
                 </p>
@@ -73,57 +61,84 @@
             <div class="column">
                 <p class="notification is-size2 has-text-weight-bold has-text-centered">
                     Unleaded Petrol</p>
-                {% for resp in ulp %}
-                    <ul>
-                        <li>
-                            <p class="is-size-4">{{ resp.price }}</p>
-                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
-                            <p class="is-size-5">{{ resp.address }}</p>
-                            <br>
-                        </li>
-                    </ul>
+                {% for data in ulp %}
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            {{ data.title }}
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>{{ data.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% else %}
                 {% endfor %}
             </div>
             <div class="column">
                 <p class="notification is-size2 has-text-weight-bold has-text-centered">
                     Premium Unleaded Petrol</p>
-                {% for resp in p_ulp %}
-                    <ul>
-                        <li>
-                            <p class="is-size-4">{{ resp.price }}</p>
-                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
-                            <p class="is-size-5">{{ resp.address }}</p>
-                            <br>
-                        </li>
-                    </ul>
+                {% for data in p_ulp %}
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                {{ data.title }}
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>{{ data.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                {% else %}
                 {% endfor %}
             </div>
             <div class="column">
                 <p class="notification is-size2 has-text-weight-bold has-text-centered">
                     Diesel</p>
-                {% for resp in dsl %}
-                    <ul>
-                        <li>
-                            <p class="is-size-4">{{ resp.price }}</p>
-                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
-                            <p class="is-size-5">{{ resp.address }}</p>
-                            <br>
-                        </li>
-                    </ul>
+                {% for data in dsl %}
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                {{ data.title }}
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>{{ data.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                {% else %}
                 {% endfor %}
             </div>
             <div class="column">
                 <p class="notification is-size2 has-text-weight-bold has-text-centered has-border">
                     LPG</p>
-                {% for resp in lpg %}
-                    <ul>
-                        <li>
-                            <p class="is-size-4">{{ resp.price }}</p>
-                            <p class="is-size-4">{{ resp['trading-name'] }}</p>
-                            <p class="is-size-5">{{ resp.address }}</p>
-                            <br>
-                        </li>
-                    </ul>
+                {% for data in lpg %}
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                {{ data.title }}
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>{{ data.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                {% else %}
                 {% endfor %}
             </div>
         </div>

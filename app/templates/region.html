@@ -5,15 +5,21 @@
         <div class="column is-one-third">
             <p class="notification is-size-3 has-text-weight-bold has-text-centered">
                 {{ region }}</p>
-            {% for info in resp %}
-                <ul>
-                    <li>
-                        <p class="is-size-4 has-text-centered">{{ info.price }}</p>
-                        <p class="is-size-4">{{ info['trading-name'] }}</p>
-                        <p class="is-size-5">{{ info.address }}</p>
-                        <br>
-                    </li>
-                </ul>
+            {% for data in resp %}
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            {{ data.title }}
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>{{ data.address }}</p>
+                            <p>{{ data.location | capitalize }}</p>
+                            <p>{{ data.description }}</p>
+                        </div>
+                    </div>
+                    </div>
             {% endfor %}
         </div>
     <div class="column is-two-thirds">

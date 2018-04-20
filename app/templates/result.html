@@ -3,22 +3,27 @@
 {% block content %}
     {% if resp is not none %}
         <div class="container is-fluid">
-        <div class="column">
-            <p class="notification has-text-centered is-size-3 has-text-weight-bold">
-                Search Results</p>
-            {% for data in resp %}
-                <ul>
-                    <li>
-                        <p class="is-size-5">{{ data.title }}</p>
-                        <p class="is-size-5">{{ data.price }}</p>
-                        <p class="is-size-5">{{ data['trading-name'] }}</p>
-                        <p class="is-size-5">{{ data.address }}</p>
-                    </li>
-                </ul>
+            <div class="columns">
+            <div class="column is-one-third">
+                <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                    {{ suburb }}</p>
+                {% for data in resp %}
+                    <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            {{ data.title }}
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>{{ data.address }}</p>
+                            <p>{{ data.price }}</p>
+                        </div>
+                    </div>
+                    </div>
 
-            {% else %}
-
-            {% endfor %}
+                                 {% else %}
+                {% endfor %}
         </div>
     {% endif %}
 {% endblock %}

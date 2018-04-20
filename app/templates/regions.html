@@ -1,17 +1,19 @@
 {% include 'base.html' %}
 
+<div class="container is-fluid"></div>
 <div class="column">
-    <p class="notification">
-    <p class="has-text-centered is-size-3 has-text-weight-bold">Regions</p>
-{#        {% for region in regions.values() %}#}
-    {% for key, value in regions.items() %}
+    <div class="column is-one-third">
+        <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+            Regions</p>
+        {#        {% for region in regions.values() %}#}
+        {% for key, value in regions.items() %}
             <ul>
                 <li>
                     <p class="is-size-5"><a href="{{ url_for('core.region',
                     region=key) }}">{{ value }}</a></p>
-            </li>
-        </ul>
+                </li>
+            </ul>
         {% endfor %}
-    </p>
+        </p>
+    </div>
 </div>
-
