@@ -1,6 +1,6 @@
 import logging
 from . import core
-from flask import render_template, jsonify, redirect, flash
+from flask import render_template, jsonify, redirect, flash, abort
 from app import db, fuelwatch
 from fuelwatcher import constants
 from app.models import *
@@ -76,21 +76,19 @@ def region(region):
 
 @core.route('/search_results/<product>/<suburb>')
 def search_results(product, suburb):
-    resp = None
-    if not fuelwatch.query(suburb=suburb, product=int(product)):
-        # flash message
+    fuelwatch.query(suburb=suburb, product=int(product))
+    resp = fuelwatch.get_xml
+    product_value = constants.PRODUCT.get(int(product))
+    if not resp:
+        flash('Sorry! {0} is not availabe in {1} Please try a new search'.
+              format(product_value, suburb))
         return redirect('index/today')
-    if fuelwatch.query(suburb=suburb, product=int(product)):
-        resp = fuelwatch.get_xml
-        product_value = constants.PRODUCT.get(int(product))
-        if not resp:
-            empty = 'Sorry! {0} is not availabe in {1}'.format(
-                product_value, suburb)
-            # if product returns no matches
-            # return redirect('index/today')
-        return render_template('result.html', suburb=suburb,
-                               product=product_value,
-                               resp=resp)
+    return render_template('result.html', resp=resp, suburb=suburb)
 
-    # return render_template('result.html', suburb=suburb, product=product,
-    #                        resp=resp)
+@core.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+@core.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html'), 500
