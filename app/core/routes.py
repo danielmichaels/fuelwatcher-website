@@ -1,6 +1,6 @@
 import logging
 from . import core
-from flask import render_template, jsonify, redirect, flash, abort
+from flask import render_template, jsonify, redirect, flash, abort, request
 from app import db, fuelwatch
 from fuelwatcher import constants
 from app.models import *
@@ -23,8 +23,8 @@ def redirect_index():
     return redirect('index/today')
 
 
-@core.route('/index/<day>')
-@core.route('/<day>')
+@core.route('/index/<day>', methods=['POST', 'GET'])
+@core.route('/<day>', methods=['POST', 'GET'])
 def index(day):
     """User initiated selection of day
 
@@ -73,17 +73,19 @@ def region(region):
     return render_template('region.html', region=region_value, resp=resp)
 
 
-@core.route('/search_results/<product>/<suburb>')
-def search_results(product, suburb):
-    fuelwatch.query(suburb=suburb, product=int(product))
+@core.route('/search_results/', methods=['POST', 'GET'])
+def search_results():
+    product = request.form.get('fuel')
+    suburb = request.form.get('suburb')
+    product_key = [k for k, v in constants.PRODUCT.items() if v == product][0]
+    fuelwatch.query(suburb=suburb, product=product_key)
     resp = fuelwatch.get_xml
-    product_value = constants.PRODUCT.get(int(product))
     if not resp:
         flash('Sorry! {0} is not availabe in {1} Please try a new search'.
-              format(product_value, suburb))
+              format(product, suburb))
         return redirect('index/today')
     return render_template('result.html', resp=resp, suburb=suburb,
-                           product=product_value)
+                           product=product_key)
 
 
 @core.errorhandler(404)
