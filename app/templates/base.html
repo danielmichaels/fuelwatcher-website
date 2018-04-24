@@ -9,6 +9,8 @@
             {{ url_for('static', filename='node_modules/bulma/css/bulma.css') }}">
     <!--   <link rel="stylesheet"
              href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <link rel="shortcut icon"
+          href="{{ url_for('static', filename='img/favicon.ico') }}">
     <script defer
             src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
@@ -18,10 +20,11 @@
 {% block navbar %}
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png"
-                     alt="Bulma: a modern CSS framework based on Flexbox"
-                     width="112" height="28">
+            <a class="navbar-item"
+               href="{{ url_for('core.index', day='today') }}">
+                <p class="is-size-4 has-text-weight-bold">
+                    FUELWATCHER
+                </p>
             </a>
             <div class="navbar-burger" data-target="topstories-nav">
                 <span></span>
@@ -31,10 +34,6 @@
         </div>
         <div id="topstories-nav" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item"
-                   href="{{ url_for('core.index', day='today') }}">
-                    Home
-                </a>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link"
                        href="{{ url_for('core.index', day='today') }}">
@@ -76,7 +75,25 @@
 
 {% endblock %}
 
-</body>
+{% block footer %}
+<footer class="footer">
+    <div class="container is-fluid">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Fuelwatcher</strong> by <a
+                    href="https://danielms.site">Daniel
+                Michaels</a>. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                The website content
+                is licensed <a
+                    href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+                BY NC SA 4.0</a>.
+            </p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
 {% block scripts %}
     {% include 'scripts.html' %}
 {% endblock %}

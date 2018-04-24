@@ -1,29 +1,38 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 
-<div class="container is-fluid">
-    <div class="columns">
-        <div class="column is-one-third">
-            <p class="notification is-size-3 has-text-weight-bold has-text-centered">
-                {{ region }}</p>
-            {% for data in resp %}
-                <div class="card">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            {{ data.title }}
-                        </p>
-                    </header>
-                    <div class="card-content">
-                        <div class="content">
-                            <p>{{ data.address }}</p>
-                            <p>{{ data.location | capitalize }}</p>
-                            <p>{{ data.description }}</p>
+{% block content %}
+    <div class="container is-fluid">
+        <div class="columns">
+            <div class="column is-one-third">
+                <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                    {{ region }}</p>
+                {% for data in resp %}
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                {{ data.title }}
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>{{ data.address }}</p>
+                                <p>{{ data.location | capitalize }}</p>
+                                <p>{{ data.description }}</p>
+                            </div>
                         </div>
                     </div>
-                    </div>
-            {% endfor %}
+                    <br>
+                {% endfor %}
+            </div>
+            <div class="column is-two-thirds">
+                <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                    MAP</p>
+                <p class="is-size-1">INPUT MAP WITH ALL GEO OF REGION</p>
+            </div>
         </div>
-    <div class="column is-two-thirds">
-             <p class="notification is-size-3 has-text-weight-bold has-text-centered">
-                MAP</p>
-        <p class="is-size-1">INPUT MAP WITH ALL GEO OF REGION</p>
     </div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}

@@ -1,5 +1,6 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 
+{% block content %}
 <div class="container is-fluid"></div>
 <div class="column">
     <div class="column is-one-third">
@@ -17,3 +18,8 @@
         </p>
     </div>
 </div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}

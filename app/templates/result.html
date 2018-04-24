@@ -1,4 +1,4 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
     {% if resp is not none %}
@@ -6,7 +6,7 @@
             <div class="columns">
             <div class="column is-one-third">
                 <p class="notification is-size-3 has-text-weight-bold has-text-centered">
-                    {{ suburb }}</p>
+                    {{ suburb }} - {{ product_value }}</p>
                 {% for data in resp %}
                     <div class="card">
                     <header class="card-header">
@@ -17,13 +17,24 @@
                     <div class="card-content">
                         <div class="content">
                             <p>{{ data.address }}</p>
-                            <p>{{ data.price }}</p>
+                            <p>{{ data.location | capitalize }}</p>
+                            <p>{{ data.description }}</p>
                         </div>
                     </div>
                     </div>
 
+                    <br>
                                  {% else %}
                 {% endfor %}
         </div>
     {% endif %}
+    <div class="column is-two-thirds">
+             <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                MAP</p>
+        <p class="is-size-1">INPUT MAP WITH ALL GEO OF REGION</p>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
 {% endblock %}
