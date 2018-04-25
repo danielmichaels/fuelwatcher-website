@@ -16,6 +16,7 @@ class DevelopementConfig(Config):
     DEBUG = True
     TEMPLATE_AUTO_RELOAD = True
     EXPLAIN_TEMPLATE_LOADING = True
+    GOOGLEMAPS_KEY = 'AIzaSyDeKO22YmX_a5lsoeImXUkWx7d0H36k3sY'
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir,

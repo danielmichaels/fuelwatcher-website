@@ -3,10 +3,13 @@ from flask import Flask
 from config import config
 from flask_sqlalchemy import SQLAlchemy
 from fuelwatcher import FuelWatch
+from flask_googlemaps import GoogleMaps
 # Instantiations
 
 db = SQLAlchemy()
 fuelwatch = FuelWatch()
+google_maps = GoogleMaps()
+
 
 
 def create_app(config_name):
@@ -19,6 +22,7 @@ def create_app(config_name):
     # ------ Application Factory
 
     db.init_app(app)
+    google_maps.init_app(app)
     # with app.test_request_context():
     with app.app_context():
         """Creates context to drive the db.create_all()"""
