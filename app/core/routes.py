@@ -1,8 +1,9 @@
 import logging
 from . import core
 from flask import render_template, jsonify, redirect, flash, abort, request
-from app import db, fuelwatch
+from app import db, fuelwatch, google_maps
 from fuelwatcher import constants
+from flask_googlemaps import Map
 from app.models import *
 
 logging.basicConfig(level=logging.INFO)
@@ -10,12 +11,42 @@ logging.basicConfig(level=logging.INFO)
 
 @core.route('/test')
 def test():
-    suburbs, product = constants.SUBURB, constants.PRODUCT
-    fuelwatch.query(product=1)
-    resp = fuelwatch.get_xml[:10]
-    return jsonify(resp)
-    # return render_template('index.html', product=product.values(),
-    #                        suburbs=suburbs)
+    # fuelwatch.query(suburb='Floreat')
+    # resp = fuelwatch.get_xml
+    # return render_template('map.html', resp=resp)
+
+    # creating a map in the view
+    perth = Map(
+        identifier="perth",
+        lat=-31.0,
+        lng=115.0,
+    )
+    mymap = Map(
+        identifier="view-side",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[(37.4419, -122.4419), (37.5, -122.4)]
+    )
+    sndmap = Map(
+        identifier="sndmap",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+             'lat': 37.4419,
+             'lng': -122.1419,
+             'infobox': "<b>Hello World</b>"
+          },
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+             'lat': 37.4300,
+             'lng': -122.1400,
+             'infobox': "<b>Hello World from other place</b>"
+          }
+        ]
+    )
+    return render_template('map.html',perth=perth, mymap=mymap, sndmap=sndmap)
 
 
 @core.route('/')
@@ -85,7 +116,7 @@ def search_results():
               format(product, suburb))
         return redirect('index/today')
     return render_template('result.html', resp=resp, suburb=suburb,
-                           product=product_key)
+                           product=product_key, product_value=product)
 
 
 @core.errorhandler(404)
