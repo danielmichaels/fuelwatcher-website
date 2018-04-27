@@ -8,7 +8,7 @@ from flask_googlemaps import GoogleMaps
 
 db = SQLAlchemy()
 fuelwatch = FuelWatch()
-google_maps = GoogleMaps()
+google_maps = GoogleMaps(key='AIzaSyDeKO22YmX_a5lsoeImXUkWx7d0H36k3sY')
 
 
 
@@ -22,7 +22,8 @@ def create_app(config_name):
     # ------ Application Factory
 
     db.init_app(app)
-    google_maps.init_app(app)
+    # google_maps.init_app(app)
+    GoogleMaps(app)
     # with app.test_request_context():
     with app.app_context():
         """Creates context to drive the db.create_all()"""
