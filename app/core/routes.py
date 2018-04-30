@@ -1,13 +1,13 @@
 import logging
 from . import core
 from flask import render_template, jsonify, redirect, flash, abort, request
-from app import db, fuelwatch, google_maps
+from app import db, fuelwatch
 from fuelwatcher import constants
-from flask_googlemaps import Map
+from flask_googlemaps import Map # remove once /test finished
+from .utils import mapping
 from app.models import *
 
 logging.basicConfig(level=logging.INFO)
-
 
 @core.route('/test')
 def test():
@@ -101,23 +101,8 @@ def region(region):
         flash('Error Searching {region} Please Try Again Later'.format(
             region=region))
         return redirect('index/today')
+    region_map = mapping(resp)
 
-    map_data = [data for data in resp]
-    for data in map_data:
-        region_map = Map(
-            identifier="region",
-            zoom=10,
-            # style="height=600px;width=600px;",
-            lat=data['latitude'],
-            lng=data['longitude'],
-            markers=[(data['latitude'], data['longitude'], data['title']) for data in
-                     map_data]
-            # markers=[
-            #     {'lat': data['latitude'],
-            #      'lng': data['longitude'],
-            #      'infobox': data['title']}
-            # ]
-        )
     return render_template('region.html', region=region_value, resp=resp,
                            region_map=region_map)
 
