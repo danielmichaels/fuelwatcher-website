@@ -1,23 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container is-fluid"></div>
-<div class="column">
-    <div class="column is-one-third">
-        <p class="notification is-size-3 has-text-weight-bold has-text-centered">
-            Regions</p>
-        {#        {% for region in regions.values() %}#}
-        {% for key, value in regions.items() %}
-            <ul>
-                <li>
-                    <p class="is-size-5"><a href="{{ url_for('core.region',
+    <div class="container is-fluid"></div>
+    <div class="columns">
+        <div class="column is-one-third">
+            <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                Regions</p>
+            {#        {% for region in regions.values() %}#}
+            {% for key, value in regions.items() %}
+                <ul>
+                    <li>
+                        <p class="is-size-5"><a href="{{ url_for('core.region',
                     region=key) }}">{{ value }}</a></p>
-                </li>
-            </ul>
-        {% endfor %}
-        </p>
+                    </li>
+                </ul>
+            {% endfor %}
+            </p>
+        </div>
+        <div class="column is-two-thirds">
+            <p class="notification is-size-3 has-text-weight-bold has-text-centered">
+                MAP</p>
+            <p class="is-size-1">INPUT MAP WITH ALL GEO OF REGION</p>
+            {#                {{ region.html }}#}
+        </div>
     </div>
-</div>
+
 {% endblock %}
 
 {% block footer %}

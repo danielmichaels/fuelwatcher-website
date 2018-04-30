@@ -32,21 +32,21 @@ def test():
         lat=37.4419,
         lng=-122.1419,
         markers=[
-          {
-             'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-             'lat': 37.4419,
-             'lng': -122.1419,
-             'infobox': "<b>Hello World</b>"
-          },
-          {
-             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-             'lat': 37.4300,
-             'lng': -122.1400,
-             'infobox': "<b>Hello World from other place</b>"
-          }
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                'lat': 37.4419,
+                'lng': -122.1419,
+                'infobox': "<b>Hello World</b>"
+            },
+            {
+                'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                'lat': 37.4300,
+                'lng': -122.1400,
+                'infobox': "<b>Hello World from other place</b>"
+            }
         ]
     )
-    return render_template('map.html',perth=perth, mymap=mymap, sndmap=sndmap)
+    return render_template('map.html', perth=perth, mymap=mymap, sndmap=sndmap)
 
 
 @core.route('/')
@@ -101,7 +101,25 @@ def region(region):
         flash('Error Searching {region} Please Try Again Later'.format(
             region=region))
         return redirect('index/today')
-    return render_template('region.html', region=region_value, resp=resp)
+
+    map_data = [data for data in resp]
+    for data in map_data:
+        region_map = Map(
+            identifier="region",
+            zoom=10,
+            # style="height=600px;width=600px;",
+            lat=data['latitude'],
+            lng=data['longitude'],
+            markers=[(data['latitude'], data['longitude'], data['title']) for data in
+                     map_data]
+            # markers=[
+            #     {'lat': data['latitude'],
+            #      'lng': data['longitude'],
+            #      'infobox': data['title']}
+            # ]
+        )
+    return render_template('region.html', region=region_value, resp=resp,
+                           region_map=region_map)
 
 
 @core.route('/search_results/', methods=['POST', 'GET'])
