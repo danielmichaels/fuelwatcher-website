@@ -118,8 +118,10 @@ def search_results():
         flash('Sorry! {0} is not availabe in {1} Please try a new search'.
               format(product, suburb))
         return redirect('index/today')
+    maps = mapping(resp)
     return render_template('result.html', resp=resp, suburb=suburb,
-                           product=product_key, product_value=product)
+                           product=product_key, product_value=product,
+                           maps=maps)
 
 
 @core.errorhandler(404)

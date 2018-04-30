@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block maps %}{{ maps.js }}{% endblock %}
 
 {% block content %}
     {% if resp is not none %}
@@ -31,7 +32,7 @@
     <div class="column is-two-thirds">
              <p class="notification is-size-3 has-text-weight-bold has-text-centered">
                 MAP</p>
-        <p class="is-size-1">INPUT MAP WITH ALL GEO OF REGION</p>
+    {{ maps.html }}
     </div>
 {% endblock %}
 
