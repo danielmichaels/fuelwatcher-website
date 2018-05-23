@@ -6,7 +6,7 @@
         <div class="columns">
             <div class="column is-one-third">
                 <p class="notification is-size-3 has-text-weight-bold has-text-centered">
-                    {{ region }}</p>
+                    {{ region_value }}</p>
                 {% if products is not none %}
                     {% for key, value in products.items() %}
                         <a href="{{ url_for('core.region', region=region, product=key) }}">{{ value }}</a>

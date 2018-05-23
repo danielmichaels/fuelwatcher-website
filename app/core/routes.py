@@ -89,7 +89,6 @@ def regions():
 
 @core.route('/regions/<region>/<product>')
 def region(region, product):
-# def region(region, product=1):
     products = constants.PRODUCT
     if product is not None:
         fuelwatch.query(region=int(region), product=int(product))
@@ -100,13 +99,17 @@ def region(region, product):
     region_value = constants.REGION.get(int(region))
     product_value = constants.PRODUCT.get(int(product))
     if not resp:
-        flash('Error Searching {region} or {product} - Please Try Again Later'.format(
-            region=region_value, product=product_value))
+        flash(
+            'Error Searching {region} or {product} - Please Try Again Later'.format(
+                region=region_value, product=product_value))
+        # return redirect('region/<region>/1')
         return redirect('index/today')
     region_map = mapping(resp)
 
     return render_template('region.html', region=region, resp=resp,
-                           region_map=region_map, products=products, product=product)
+                           region_value=region_value,
+                           region_map=region_map, products=products,
+                           product=product)
 
 
 @core.route('/search_results/', methods=['POST', 'GET'])
