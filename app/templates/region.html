@@ -7,6 +7,11 @@
             <div class="column is-one-third">
                 <p class="notification is-size-3 has-text-weight-bold has-text-centered">
                     {{ region }}</p>
+                {% if products is not none %}
+                    {% for key, value in products.items() %}
+                        <a href="{{ url_for('core.region', region=region, product=key) }}">{{ value }}</a>
+                    {% endfor %}
+                {% endif %}
                 {% for data in resp %}
                     <div class="card">
                         <header class="card-header">
@@ -28,9 +33,9 @@
             <div class="column is-two-thirds is-mobile">
                 <p class="notification is-size-3 has-text-weight-bold has-text-centered">
                     MAP</p>
-{#                <div class="container is-fullscreen">#}
+                {#                <div class="container is-fullscreen">#}
                 {{ region_map.html }}
-{#                    </div>#}
+                {#                    </div>#}
             </div>
         </div>
     </div>
