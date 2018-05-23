@@ -1,6 +1,7 @@
 import logging
 from . import core
-from flask import render_template, jsonify, redirect, flash, abort, request
+from flask import render_template, jsonify, redirect, flash, abort, request, \
+    url_for
 from app import db, fuelwatch
 from fuelwatcher import constants
 from flask_googlemaps import Map  # remove once /test finished
@@ -100,10 +101,10 @@ def region(region, product):
     product_value = constants.PRODUCT.get(int(product))
     if not resp:
         flash(
-            'Error Searching {region} or {product} - Please Try Again Later'.format(
+            '{product} Not Found in {region}'.format(
                 region=region_value, product=product_value))
-        # return redirect('region/<region>/1')
-        return redirect('index/today')
+        return redirect(url_for('core.region', region=region, product=1))
+        # return redirect('index/today')
     region_map = mapping(resp)
 
     return render_template('region.html', region=region, resp=resp,
