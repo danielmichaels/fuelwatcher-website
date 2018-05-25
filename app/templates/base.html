@@ -35,21 +35,11 @@
         </div>
         <div id="topstories-nav" class="navbar-menu">
             <div class="navbar-start">
-                <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link"
+                <div class="navbar-start">
+                    <a class="navbar-item has-text-white"
                        href="{{ url_for('core.regions') }}">
                         Regions
                     </a>
-                    <div class="navbar-dropdown is-boxed">
-                        <a class="navbar-item"
-                           href="{{ url_for('core.index', day='today') }}">
-                            Unleaded
-                        </a>
-                        <a class="navbar-item"
-                           href="{{ url_for('core.regions') }}">
-                            Regions
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -77,22 +67,22 @@
 {% endblock %}
 
 {% block footer %}
-<footer class="footer">
-    <div class="container is-fluid">
-        <div class="content has-text-centered">
-            <p>
-                <strong>Fuelwatcher</strong> by <a
-                    href="https://danielms.site">Daniel
-                Michaels</a>. The source code is licensed
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-                The website content
-                is licensed <a
-                    href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
-                BY NC SA 4.0</a>.
-            </p>
+    <footer class="footer">
+        <div class="container is-fluid">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Fuelwatcher</strong> by <a
+                        href="https://danielms.site">Daniel
+                    Michaels</a>. The source code is licensed
+                    <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                    The website content
+                    is licensed <a
+                        href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+                    BY NC SA 4.0</a>.
+                </p>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 {% endblock %}
 
 {% block scripts %}
