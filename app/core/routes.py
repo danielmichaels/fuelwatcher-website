@@ -109,7 +109,7 @@ def region(region, product):
     return render_template('region.html', region=region, resp=resp,
                            region_value=region_value,
                            region_map=region_map, products=products,
-                           product=product)
+                           product=product, product_value=product_value)
 
 
 @core.route('/search_results/', methods=['POST', 'GET'])
