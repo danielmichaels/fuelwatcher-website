@@ -11,6 +11,11 @@ from app.models import *
 logging.basicConfig(level=logging.INFO)
 
 
+# TODO: JS for day selection '/' grey out 'tomorrow'.
+# TODO: tidy up regions.html.
+# TODO: create database.
+# TODO: highlight selection region on map and bring to top (JS).
+
 @core.route('/test')
 def test():
     # fuelwatch.query(suburb='Floreat')
@@ -109,7 +114,7 @@ def region(region, product):
     return render_template('region.html', region=region, resp=resp,
                            region_value=region_value,
                            region_map=region_map, products=products,
-                           product=product)
+                           product=product, product_value=product_value)
 
 
 @core.route('/search_results/', methods=['POST', 'GET'])
@@ -127,7 +132,6 @@ def search_results():
     return render_template('result.html', resp=resp, suburb=suburb,
                            product=product_key, product_value=product,
                            maps=maps)
-
 
 
 @core.errorhandler(404)
