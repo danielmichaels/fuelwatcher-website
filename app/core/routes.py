@@ -104,7 +104,6 @@ def region(region, product):
             '{product} Not Found in {region}'.format(
                 region=region_value, product=product_value))
         return redirect(url_for('core.region', region=region, product=1))
-        # return redirect('index/today')
     region_map = mapping(resp)
 
     return render_template('region.html', region=region, resp=resp,
@@ -128,6 +127,7 @@ def search_results():
     return render_template('result.html', resp=resp, suburb=suburb,
                            product=product_key, product_value=product,
                            maps=maps)
+
 
 
 @core.errorhandler(404)

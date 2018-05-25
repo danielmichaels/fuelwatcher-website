@@ -1,6 +1,8 @@
 from flask_googlemaps import Map
 
+
 def mapping(resp):
+    """Helper function for Flask-Googlemaps integration in the route.py file"""
     map_data = [data for data in resp]
     for data in map_data:
         region_map = Map(
@@ -9,8 +11,10 @@ def mapping(resp):
             style="height:600px;width:100%;margin:0;",
             lat=data['latitude'],
             lng=data['longitude'],
-            markers=[(data['latitude'], data['longitude'], data['title']) for data in
+            markers=[(data['latitude'], data['longitude'], data['title']) for
+                     data in
                      map_data],
-            fit_markers_to_bounds=True # zooms in/out to fit all markers in box
+            fit_markers_to_bounds=True
+            # zooms in/out to fit all markers in box
         )
     return region_map
