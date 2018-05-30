@@ -14,7 +14,7 @@ def mapping(resp):
             markers=[(data['latitude'], data['longitude'], data['title']) for
                      data in
                      map_data],
-            fit_markers_to_bounds=True
+            fit_markers_to_bounds=True,
             # zooms in/out to fit all markers in box
         )
-    return region_map
+        return region_map
