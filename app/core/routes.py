@@ -10,18 +10,8 @@ from app.models import *
 
 logging.basicConfig(level=logging.INFO)
 
-
-# TODO: JS for day selection '/' grey out 'tomorrow'.
-# TODO: tidy up regions.html.
-# TODO: create database.
-# TODO: highlight selection region on map and bring to top (JS).
-
 @core.route('/test')
 def test():
-    # fuelwatch.query(suburb='Floreat')
-    # resp = fuelwatch.get_xml
-    # return render_template('map.html', resp=resp)
-
     # creating a map in the view
     perth = Map(
         identifier="perth",
